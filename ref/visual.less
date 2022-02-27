@@ -1,8 +1,6 @@
 @attLightGray: #E5E5E5;
-@attDarkBlue: #0057b8;
-@attLightBlue: #009FDB;
+@attDarkBlue: #009FDB;
 @harveyBallSize: 30;
-@harveyBallSizePixels: 30px;
 @hbHalf: (@harveyBallSize/2);
 @tableWidth: 100%;
 @tableHeight: 100%;
@@ -23,34 +21,9 @@ p {
     }
 }
 
-// table {
-//     width: @tableWidth;
-//     height: @tableHeight;
-// }
-
-.vScroll {
-    overflow-y: auto !important;
-}
-
-.hScroll {
-    overflow-x: auto !important;
-}
-
 table {
-    display: table;
-    width: 100%;
-}
-
-thead, tbody {
-    width: 100%;
-}
-
-thead {
-    display: table-header-group;
-}
-
-tbody {
-    display: table-row-group;
+    width: @tableWidth;
+    height: @tableHeight;
 }
 
 table, tr, td, th {
@@ -60,7 +33,7 @@ table, tr, td, th {
 
 th {
     color: @headerFontColor;
-    background-color: @attLightBlue;
+    background-color: @attDarkBlue;
     padding: 0.5em;
 }
 
@@ -71,14 +44,12 @@ th {
 }
 
 td {
-    border-bottom: 1px solid @attLightGray;
-    padding: 5px;
+    border-bottom: 0.5px solid @attLightGray;
     &.harveyBall {
         text-align: @harveyBallAlign;
-        padding: 0px;
         svg {
-            height: @harveyBallSizePixels;
-            width: @harveyBallSizePixels;
+            height: @harveyBallSize;
+            width: @harveyBallSize;
             margin: 5px;
         }
     }
@@ -126,7 +97,7 @@ td {
     }
     &3 {
         path {
-            d: path(replace("M 10 10 h -10 a 10 10 0 1 0 10 -10 z", "10", @hbHalf, "gi"));
+            d: path( replace("M 10 10 h -10 a 10 10 0 1 0 10 -10 z", "10", @hbHalf, "gi") );
         }
     }
 }

@@ -1,0 +1,309 @@
+<html>
+    <head>
+        
+    <style type="text/less">
+        @attLightGray: #E5E5E5;
+        @attDarkBlue: #0057b8;
+        @attLightBlue: #009FDB;
+        @harveyBallSize: 30;
+        @hbHalf: (@harveyBallSize/2);
+        @tableWidth: 100%;
+        @tableHeight: 100%;
+        @headerFontSize: 12px;
+        @headerFontColor: white;
+        @rowHeaderFontSize: 10px;
+        @rowHeaderFontColor: black;
+        @rowHeaderFontWeight: bold;
+        @harveyBallAlign: center;
+
+        p {
+            font-size: 20px;
+            font-weight: bold;
+            em {
+                background: yellow;
+                padding: 5px;
+                
+            }
+        }
+
+        table {
+            width: @tableWidth;
+            height: @tableHeight;
+        }
+
+        table, tr, td, th {
+            border-spacing: 0;
+            font-size: @headerFontSize;
+        }
+
+        th {
+            color: @headerFontColor;
+            background-color: @attLightBlue;
+            padding: 0.5em;
+        }
+
+        .rowHeading {
+            font-weight: @rowHeaderFontWeight;
+            font-size: @rowHeaderFontSize;
+            color: @rowHeaderFontColor;
+        }
+
+        td {
+            border-bottom: 1px solid @attLightGray;
+            &.harveyBall {
+                text-align: @harveyBallAlign;
+                svg {
+                    height: @harveyBallSize;
+                    width: @harveyBallSize;
+                    margin: 5px;
+                }
+            }
+        }
+
+        .hb {
+            &0, &1, &2, &3{
+                circle {
+                    fill: @attLightGray;
+                    stroke-width: 0;
+                    cx: @hbHalf;
+                    cy: @hbHalf;
+                    r: @hbHalf;
+                }
+            }
+            &4 {
+                circle {
+                    fill: @attDarkBlue;
+                    stroke-width: 0;
+                    cx: @hbHalf;
+                    cy: @hbHalf;
+                    r: @hbHalf;
+                }
+            }
+            &0, &4 {
+                path {
+                    d: path("M 10 10");
+                }
+            }
+            &1, &2, &3 {
+                path {
+                    fill: @attDarkBlue;
+                    stroke-width: 0;
+                }
+            }
+            &1 {
+                path {
+                    d: path( replace("M 10 10 v -10 a 10 10 1 0 1 10 10 z", "10", @hbHalf, "gi") );
+                }
+            }
+            &2 {
+                path {
+                    d: path( replace("M 10 10 v -10 a 10 10 1 0 1 10 10 a 10 10 0 0 1 -10 10 z", "10", @hbHalf, "gi") );
+                }
+            }
+            &3 {
+                path {
+                    d: path( replace("M 10 10 h -10 a 10 10 0 1 0 10 -10 z", "10", @hbHalf, "gi") );
+                }
+            }
+        }
+    </style> 
+    <script src="less.min.js" type="text/javascript"></script>
+       
+    </head>
+    <body>
+        <table>
+            <thead><th>Products</th><th>Market Share</th><th>Popularity</th><th>Marketing Mix</th><th>Market Position</th></thead>
+            <tbody>
+                <tr>
+                    <td class='rowHeading'>Product 01</td>
+                    <td class='harveyBall'>
+                        <svg class="hb0"">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                    <td class='harveyBall'>
+                        <svg class="hb1">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                    <td class='harveyBall'>
+                        <svg class="hb1">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                    <td class='harveyBall'>
+                        <svg class="hb0">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='rowHeading'>Product 02</td>
+                    <td class='harveyBall'>
+                        <svg class="hb2">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                    <td class='harveyBall'>
+                        <svg class="hb1">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                    <td class='harveyBall'>
+                        <svg class="hb4">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                    <td class='harveyBall'>
+                        <svg class="hb3">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='rowHeading'>Product 03</td>
+                    <td class='harveyBall'>
+                        <svg class="hb3">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                    <td class='harveyBall'>
+                        <svg class="hb1">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                    <td class='harveyBall'>
+                        <svg class="hb1">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                    <td class='harveyBall'>
+                        <svg class="hb0">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='rowHeading'>Product 04</td>
+                    <td class='harveyBall'>
+                        <svg class="hb2">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                    <td class='harveyBall'>
+                        <svg class="hb1">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                    <td class='harveyBall'>
+                        <svg class="hb4">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                    <td class='harveyBall'>
+                        <svg class="hb3">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='rowHeading'>Product 05</td>
+                    <td class='harveyBall'>
+                        <svg class="hb2">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                    <td class='harveyBall'>
+                        <svg class="hb1">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                    <td class='harveyBall'>
+                        <svg class="hb4">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                    <td class='harveyBall'>
+                        <svg class="hb3">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='rowHeading'>Product 06</td>
+                    <td class='harveyBall'>
+                        <svg class="hb3">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                    <td class='harveyBall'>
+                        <svg class="hb1">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                    <td class='harveyBall'>
+                        <svg class="hb1">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                    <td class='harveyBall'>
+                        <svg class="hb0">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='rowHeading'>Product 07</td>
+                    <td class='harveyBall'>
+                        <svg class="hb2">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                    <td class='harveyBall'>
+                        <svg class="hb1">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                    <td class='harveyBall'>
+                        <svg class="hb4">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                    <td class='harveyBall'>
+                        <svg class="hb3">
+                            <circle />
+                            <path />
+                        </svg>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

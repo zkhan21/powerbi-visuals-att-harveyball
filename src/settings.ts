@@ -27,22 +27,51 @@
 "use strict";
 
 import { dataViewObjectsParser } from "powerbi-visuals-utils-dataviewutils";
-import DataViewObjectsParser = dataViewObjectsParser.DataViewObjectsParser;
 
-export class VisualSettings extends DataViewObjectsParser {
-      public dataPoint: dataPointSettings = new dataPointSettings();
-      }
+export class TableSettings {
+  public allowScrollX: boolean = false;
+  public allowScrollY: boolean = true;
+}
 
-    export class dataPointSettings {
-     // Default color
-      public defaultColor: string = "";
-     // Show all
-      public showAllDataPoints: boolean = true;
-     // Fill
-      public fill: string = "";
-     // Color saturation
-      public fillRule: string = "";
-     // Text Size
-      public fontSize: number = 12;
-     }
+export class HarveyBallSettings {
+  public size: number = 30;
+  public emptyColor: string = "#E5E5E5";
+  public fullColor: string = "#0057b8";
+  public bgColor: string = null;
+  public hbRangeAuto: boolean = true;
+  public hbNormalizePerc: boolean = true;
+  public hbNormalizeNumeric: boolean = true;
+  public hbRangeGlobal: boolean = false;
+  public lowValue: number = 0;
+  public highValue: number = 1;
+  public headAlignment: string = "center";
+  public hbAlignment: string = "center";
+}
+
+export class RowHeaderSettings {
+  public show: boolean = true;
+  public fontFamily: string = "";
+  public fontSize: number = 16;
+  public fontColor: string = "black";
+  public fontBold: boolean = false;
+  public bgColor: string = "";
+  public alignment: string = "center";
+}
+
+export class ColumnHeaderSettings {
+  public show: boolean = true;
+  public fontFamily: string = "";
+  public fontSize: number = 16;
+  public fontColor: string = "white";
+  public fontBold: boolean = true;
+  public bgColor: string = "#009FDB";
+  public alignment: string = "center";
+}
+
+export class VisualSettings extends dataViewObjectsParser.DataViewObjectsParser {
+  public table: TableSettings = new TableSettings();
+  public harveyBall: HarveyBallSettings = new HarveyBallSettings();
+  public rowHeaders: RowHeaderSettings = new RowHeaderSettings();
+  public columnHeaders: ColumnHeaderSettings = new ColumnHeaderSettings();
+}
 

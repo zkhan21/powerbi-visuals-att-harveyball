@@ -1,0 +1,8 @@
+node_modules/*
+.api/*
+dist/*
+.tmp/*
+typings/*
+coverage/*
+test/*.js
+/webpack.statistics.*html

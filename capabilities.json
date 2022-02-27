@@ -1,38 +1,50 @@
 {
     "dataRoles": [
         {
-            "displayName": "Category Data",
-            "name": "category",
+            "displayName": "Rows",
+            "name": "dataRows",
             "kind": "Grouping"
         },
         {
-            "displayName": "Measure Data",
-            "name": "measure",
+            "displayName": "Values",
+            "name": "dataValue",
             "kind": "Measure"
+            
         }
     ],
     "objects": {
-        "dataPoint": {
-            "displayName": "Data colors",
+        "table": {
+            "displayName": "Table",
             "properties": {
-                "defaultColor": {
-                    "displayName": "Default color",
-                    "type": {
-                        "fill": {
-                            "solid": {
-                                "color": true
-                            }
-                        }
-                    }
-                },
-                "showAllDataPoints": {
-                    "displayName": "Show all",
+                "allowScrollX": {
+                    "displayName": "Scroll Horizontal",
+                    "description": "Allow horizontal overflown contents to be scrolled by the user",
                     "type": {
                         "bool": true
                     }
                 },
-                "fill": {
-                    "displayName": "Fill",
+                "allowScrollY": {
+                    "displayName": "Scroll Vertical",
+                    "description": "Allow vertically overflown contents to be scrolled by the user",
+                    "type": {
+                        "bool": true
+                    }
+                }
+            }
+        },
+        "harveyBall": {
+            "displayName": "Harvey Balls",
+            "properties": {
+                "size": {
+                    "displayName": "Size",
+                    "description": "The size (diameter) of the harvey ball in pixels",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "emptyColor": {
+                    "displayName": "Empty Color",
+                    "description": "The color for the empty section of the harvey ball.",
                     "type": {
                         "fill": {
                             "solid": {
@@ -41,42 +53,240 @@
                         }
                     }
                 },
-                "fillRule": {
-                    "displayName": "Color saturation",
+                "fullColor": {
+                    "displayName": "Full Color",
+                    "description": "The color for the full section of the harvey ball.",
                     "type": {
-                        "fill": {}
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
                     }
                 },
-                 "fontSize": {
+                "bgColor": {
+                    "displayName": "Background Color",
+                    "description": "The background color displayed behind the harvey ball.",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true,
+                                "nullable": true
+                            }
+                        }
+                    }
+                },
+                "hbRangeAuto": {
+                    "displayName": "Auto Range",
+                    "description": "Determine the harvey ball range based on the min and max values of each measure independently",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "hbNormalizePerc": {
+                    "displayName": "Normalize Percentages",
+                    "description": "Set the min and max ranges automatically for any measure that contains only decimal values equal to or less than 1.00",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "hbNormalizeNumeric": {
+                    "displayName": "Normalize Numeric",
+                    "description": "Set the min range to 0 for any measure that contains all positive numeric values with a maximum value greater than 1",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "hbRangeGlobal": {
+                    "displayName": "Global Range",
+                    "description": "Determine the harvey ball range based on the min and max values of all metrics in the visual",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "lowValue": {
+                    "displayName": "Range Min",
+                    "description": "Bottom end of the harvey ball range.  The minimum value that determines -- along with the high value -- what the range for the bottom 20% of the overall range will be.",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "highValue": {
+                    "displayName": "Range Max",
+                    "description": "Top end of the harvey ball range.  The maximum value that determines -- along with the low value -- what the range for the top 20% of the overall range will be.",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "headAlignment": {
+                    "displayName": "Header Alignment",
+                    "description": "How to horizontally position header text for each harvey ball column",
+                    "type": {
+                        "formatting": {
+                            "alignment": true
+                        }
+                    }
+                },
+                "hbAlignment": {
+                    "displayName": "Harvey Ball Alignment",
+                    "description": "How to horizontally position the harvey ball display within each cell of the table",
+                    "type": {
+                        "formatting": {
+                            "alignment": true
+                        }
+                    }
+                }
+            }
+        },
+        "rowHeaders": {
+            "displayName": "Row Headers",
+            "properties": {
+                "show": {
+                    "displayName": "Show",
+                    "description": "Show the value",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "fontFamily": {
+                    "displayName": "Font",
+                    "type": {
+                        "formatting": {
+                            "fontFamily": true
+                        }
+                    }
+                },
+                "fontSize": {
                     "displayName": "Text Size",
+                    "description": "Size of the font in points (pt)",
                     "type": {
                         "formatting": {
                             "fontSize": true
+                        }
+                    }
+                },
+                "fontColor": {
+                    "displayName": "Font Color",
+                    "description": "The fill color of text value",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "fontBold": {
+                    "displayName": "Bold",
+                    "description": "display font in bold characters",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "bgColor": {
+                    "displayName": "Background Color",
+                    "description": "The fill color of header background",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "alignment": {
+                    "displayName": "Alignment",
+                    "type": {
+                        "formatting": {
+                            "alignment": true
+                        }
+                    }
+                }
+            }
+        },
+        "columnHeaders": {
+            "displayName": "Column Headers",
+            "properties": {
+                "show": {
+                    "displayName": "Show",
+                    "description": "Show the value",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "fontFamily": {
+                    "displayName": "Font",
+                    "type": {
+                        "formatting": {
+                            "fontFamily": true
+                        }
+                    }
+                },
+                "fontSize": {
+                    "displayName": "Text Size",
+                    "description": "Size of the font in points (pt)",
+                    "type": {
+                        "formatting": {
+                            "fontSize": true
+                        }
+                    }
+                },
+                "fontColor": {
+                    "displayName": "Font Color",
+                    "description": "The fill color of text value",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "fontBold": {
+                    "displayName": "Bold",
+                    "description": "display font in bold characters",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "bgColor": {
+                    "displayName": "Background Color",
+                    "description": "The fill color of header background",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "alignment": {
+                    "displayName": "Alignment",
+                    "type": {
+                        "formatting": {
+                            "alignment": true
                         }
                     }
                 }
             }
         }
     },
+    "sorting": { "default": {}},
+    "tooltips": {
+        "supportedTypes": {
+            "default": true,
+            "canvas": true
+        },
+        "roles": [
+            "tooltips"
+        ]
+    },
     "dataViewMappings": [
         {
-            "categorical": {
-                "categories": {
-                    "for": {
-                        "in": "category"
-                    },
-                    "dataReductionAlgorithm": {
-                        "top": {}
-                    }
-                },
-                "values": {
-                    "select": [
-                        {
-                            "bind": {
-                                "to": "measure"
-                            }
-                        }
-                    ]
+            "conditions": [{"dataValue": {"min": 1}}],
+            "table": {
+                "rows": {
+                    "select": [{"for": {"in": "dataRows"}},{"for": {"in": "dataValue"}}]
                 }
             }
         }
