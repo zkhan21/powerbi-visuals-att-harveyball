@@ -1,3 +1,7 @@
+## 1.0.1
+* Allow single values without rows
+* Bugfix
+
 ## 1.0.0
 * Prepare for initial packaging
 * Add icon.png

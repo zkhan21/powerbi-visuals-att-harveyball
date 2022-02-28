@@ -7,7 +7,7 @@ import PrimitiveValue = powerbi.PrimitiveValue;
 import { VisualSettings } from './settings';
 import VisualUpdateOptions = powerbi.extensibility.visual.VisualUpdateOptions;
 import IVisualHost = powerbi.extensibility.visual.IVisualHost;
-
+import DataViewTableRow = powerbi.DataViewTableRow
 // MODELS
 export interface HarveyBallViewModel {
     tableHeaders: HarveyBallColumn[];
@@ -71,10 +71,10 @@ export function visualTransform(options: VisualUpdateOptions, host: IVisualHost,
     ) {
         return viewModel;
     }
-
-    // setup local variables
-    let dataRows = dataViews[0].table.rows
-    let dataColumns = dataViews[0].table.columns
+    
+    // setup local variables if table view exists
+    var dataRows = dataViews[0].table.rows
+    var dataColumns = dataViews[0].table.columns
 
     //get order of columns with groupings first
     let colIndexes: colOrderArray = {
@@ -108,13 +108,14 @@ export function visualTransform(options: VisualUpdateOptions, host: IVisualHost,
     }
 
     // get column headers
+
     for (const i of viewModel.columnOrder) {
         let temp: HarveyBallColumn = {
             name: dataColumns[i].displayName,
             isMeasure: dataColumns[i].isMeasure,
-            localMin: dataColumns[i].isMeasure ? dataColumns[i].aggregates.minLocal : null,
-            localMax: dataColumns[i].isMeasure ? dataColumns[i].aggregates.maxLocal : null,
-            format: dataColumns[i].isMeasure ? dataViews[0].metadata.columns[i].format : null,
+            localMin: dataColumns[i].hasOwnProperty('aggregates') ? dataColumns[i].aggregates.minLocal : null,
+            localMax: dataColumns[i].hasOwnProperty('aggregates') ? dataColumns[i].aggregates.maxLocal : null,
+            format: dataColumns[i].hasOwnProperty('format') ? dataViews[0].metadata.columns[i].format : null,
         }
         viewModel.tableHeaders.push(temp)
         if (!viewModel.globalMin || viewModel.globalMin > temp.localMin) { viewModel.globalMin = temp.localMin }
@@ -147,6 +148,7 @@ export function visualTransform(options: VisualUpdateOptions, host: IVisualHost,
         }
         viewModel.tableRows.push(temp)
     }
+
 
     return viewModel;
 }
