@@ -4,10 +4,10 @@
         "displayName": "HarveyBall Table (AT&T)",
         "guid": "attPowerbiVizHarveyBall462FD24F376C4831BE6FC201E69A3E2E",
         "visualClassName": "Visual",
-        "version": "1.0.1",
+        "version": "1.0.2",
         "description": "Visual that displays Harvey Balls instead of metric values",
-        "supportUrl": "TBD",
-        "gitHubUrl": "TBD"
+        "supportUrl": "https://github.com/bwadle/powerbi-visuals-att-harveyball/issues",
+        "gitHubUrl": "https://github.com/bwadle/powerbi-visuals-att-harveyball"
     },
     "apiVersion": "3.8.0",
     "author": {

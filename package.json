@@ -18,6 +18,7 @@
     "powerbi-visuals-api": "~3.8.0",
     "powerbi-visuals-utils-dataviewutils": "2.2.1",
     "powerbi-visuals-utils-formattingutils": "^4.7.1",
+    "powerbi-visuals-utils-interactivityutils": "^5.7.1",
     "powerbi-visuals-utils-tooltiputils": "^2.5.2"
   },
   "devDependencies": {

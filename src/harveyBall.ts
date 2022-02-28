@@ -26,6 +26,7 @@
 "use strict";
 
 import "./../style/visual.less";
+import "./../node_modules/powerbi-visuals-utils-interactivityutils/lib/index.css";
 import powerbi from "powerbi-visuals-api";
 
 import EnumerateVisualObjectInstancesOptions = powerbi.EnumerateVisualObjectInstancesOptions;
@@ -38,10 +39,11 @@ import VisualObjectInstanceEnumeration = powerbi.VisualObjectInstanceEnumeration
 import IVisualEventService = powerbi.extensibility.IVisualEventService;
 import VisualUpdateOptions = powerbi.extensibility.visual.VisualUpdateOptions;
 import VisualConstructorOptions = powerbi.extensibility.visual.VisualConstructorOptions;
-
+import { interactivityBaseService, interactivitySelectionService } from "powerbi-visuals-utils-interactivityutils";
 import VisualTooltipDataItem = powerbi.extensibility.VisualTooltipDataItem;
 import { createTooltipServiceWrapper, ITooltipServiceWrapper } from "powerbi-visuals-utils-tooltiputils";
 import { valueFormatter } from "powerbi-visuals-utils-formattingutils";
+import { BaseBehaviorOptions } from "powerbi-visuals-utils-interactivityutils/lib/baseBehavior";
 import { 
     modifyCSSClass,
     addRow
@@ -49,7 +51,8 @@ import {
 import {
     HarveyBallViewModel,
     HarveyBallDatapoint,
-    visualTransform
+    visualTransform,
+    Behavior
 } from './interfaces'
 import { VisualSettings} from './settings';
 
@@ -66,7 +69,9 @@ export class Visual implements IVisual {
     private tableRoot: Selection<HTMLTableElement>;
     private tooltipServiceWrapper: ITooltipServiceWrapper;
     private events: IVisualEventService;
-
+    private interactivity: interactivityBaseService.IInteractivityService<HarveyBallDatapoint>
+    private behavior: Behavior<HarveyBallDatapoint>;
+    
 
     constructor(options: VisualConstructorOptions) {
         this.host = options.host
@@ -80,6 +85,8 @@ export class Visual implements IVisual {
                 .style("height", this.target.clientHeight + "px")
                 .style("width", this.target.clientWidth + "px")
                 .attr('id', 'harveyBallTableRoot');
+        this.interactivity = interactivitySelectionService.createInteractivitySelectionService(this.host)
+        this.behavior = new Behavior()
     }
 
     public update(options: VisualUpdateOptions) {
@@ -170,6 +177,15 @@ export class Visual implements IVisual {
                 value: <string>valFormatter.format(value.value)
             }];
         }
+
+        // bind the behavior options of the HarveyBallDataPoint interface to the interactivity service
+        this.interactivity.bind(<BaseBehaviorOptions<HarveyBallDatapoint>>{
+            behavior: this.behavior,
+            dataPoints: viewModel.data,
+            clearCatcherSelection: d3.select(this.target),
+            elementsSelection: d3.selectAll('td')
+        });
+
 
         // fire the events rendering finished event message
         this.events.renderingFinished(options);

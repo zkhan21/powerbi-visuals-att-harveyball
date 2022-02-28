@@ -1,3 +1,9 @@
+## 1.0.2
+* Add cross-selection and cross-filtering capabilites
+* integrate with `InteractivityUtils`
+* add github repository url
+* add support url
+
 ## 1.0.1
 * Allow single values without rows
 * Bugfix

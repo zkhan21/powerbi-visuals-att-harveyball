@@ -7,7 +7,15 @@ import PrimitiveValue = powerbi.PrimitiveValue;
 import { VisualSettings } from './settings';
 import VisualUpdateOptions = powerbi.extensibility.visual.VisualUpdateOptions;
 import IVisualHost = powerbi.extensibility.visual.IVisualHost;
-import DataViewTableRow = powerbi.DataViewTableRow
+
+import { interactivitySelectionService } from "powerbi-visuals-utils-interactivityutils";
+
+import { ISelectionHandler, IInteractiveBehavior } from "powerbi-visuals-utils-interactivityutils/lib/interactivityBaseService";
+import { BaseBehaviorOptions } from "powerbi-visuals-utils-interactivityutils/lib/baseBehavior";
+import {
+    BaseDataPoint
+} from "powerbi-visuals-utils-interactivityutils/lib/interactivityBaseService";
+
 // MODELS
 export interface HarveyBallViewModel {
     tableHeaders: HarveyBallColumn[];
@@ -32,7 +40,7 @@ export interface HarveyBallRow {
     selectionIds: ISelectionId[];
 }
 
-export interface HarveyBallDatapoint {
+export interface HarveyBallDatapoint extends interactivitySelectionService.SelectableDataPoint {
     value: any;
     selectionId: ISelectionId;
     column: string;
@@ -43,6 +51,70 @@ export interface colOrderArray {
     index: number[];
     valueIndex: number[];
     columnIndex: number[];
+}
+
+export class Behavior<SelectableDataPointType extends BaseDataPoint> implements IInteractiveBehavior {
+
+    /** d3 selection object of main elements in the chart */
+    protected options: BaseBehaviorOptions<SelectableDataPointType>;
+    protected selectionHandler: ISelectionHandler;
+
+    protected bindClick() {
+        const {
+            elementsSelection
+        } = this.options;
+
+        elementsSelection.on("click", (datum) => {
+            const mouseEvent: MouseEvent = window.event as MouseEvent;
+            mouseEvent && this.selectionHandler.handleSelection(datum, mouseEvent.ctrlKey);
+        });
+    }
+    
+
+    protected bindClearCatcher() {
+        // ...
+    }
+
+    protected bindContextMenu() {
+        const {
+            elementsSelection
+        } = this.options;
+
+        elementsSelection.on("contextmenu", (datum) => {
+            const event: MouseEvent = window.event as MouseEvent;
+            if (event) {
+                this.selectionHandler.handleContextMenu(
+                    datum,
+                    {
+                        x: event.clientX,
+                        y: event.clientY
+                    });
+                event.preventDefault();
+            }
+        });
+    }
+
+    public bindEvents(
+        options: BaseBehaviorOptions<SelectableDataPointType>,
+        selectionHandler: ISelectionHandler): void {
+
+        this.options = options;
+        this.selectionHandler = selectionHandler;
+
+        this.bindClick();
+        this.bindClearCatcher();
+        this.bindContextMenu();
+    }
+
+    public renderSelection(hasSelection: boolean): void {
+        this.options.elementsSelection.style("opacity", (category: any) => {
+            if (hasSelection && !category.selected) {
+                return 0.3;
+            } else {
+                return 1;
+            }
+        });
+    }
 }
 
 
@@ -133,7 +205,9 @@ export function visualTransform(options: VisualUpdateOptions, host: IVisualHost,
                 value: null,
                 selectionId: null,
                 column: null,
-                format: null
+                format: null,
+                identity: null,
+                selected: false
             }
             temp.values.push(r[i])
             tempDatapoint.value = r[i]
@@ -142,6 +216,7 @@ export function visualTransform(options: VisualUpdateOptions, host: IVisualHost,
                 .createSelectionId();
             temp.selectionIds.push(selectionId)
             tempDatapoint.selectionId = selectionId
+            tempDatapoint.identity = selectionId
             tempDatapoint.column = viewModel.tableHeaders[colIndex].name
             tempDatapoint.format = viewModel.tableHeaders[colIndex].format
             viewModel.data.push(tempDatapoint)
@@ -149,6 +224,6 @@ export function visualTransform(options: VisualUpdateOptions, host: IVisualHost,
         viewModel.tableRows.push(temp)
     }
 
-
     return viewModel;
+    
 }
