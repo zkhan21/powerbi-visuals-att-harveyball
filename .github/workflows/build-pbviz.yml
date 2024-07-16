@@ -16,10 +16,10 @@ jobs:
         node-version: '14'
 
     - name: Install dependencies
-      run: npm install
-
-    - name: Install Power BI Visual Tools
-      run: npm install -g powerbi-visuals-tools
+      run: |
+        npm install
+        npm install eslint
+        npm install powerbi-visuals-tools -g
 
     - name: Package the visual
       run: pbiviz package
